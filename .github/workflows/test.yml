@@ -11,29 +11,22 @@ jobs:
 
   auto-approve:
     runs-on: ubuntu-latest
-    if: ${{ contains(fromJson('["renovate-approve[bot]", "h-no"]'), github.event.sender.login) && github.event.review.state == 'approved' }}
-    env:
-      SUPER_SECRET: ${{ secrets.LOL }}
-      TOKEN: ${{ secrets.APPROVE_PAT }}
-      MESSAGE: Approved!
+    if: ${{ contains(fromJson('["renovate-approve[bot]", "h-no"]'), github.event.sender.login) && github.event.review.state == 'approved' }}    
+    permissions:
+      pull-requests: write
     steps:
       - name: Approve
-        run: |
-          echo "***\n"
-          echo ${{ env.TOKEN }}
-          echo ${{ secrets.APPROVE_PAT }}
-          echo ${{ env.MESSAGE }}
-          echo ${{ env.SUPER_SECRET }}
-          echo "***\n"
-          echo "***\n"
-          echo ${{ env.TOKEN }} | sed 's/./& /g'
-          echo ${{ secrets.APPROVE_PAT }}  | sed 's/./& /g'
-          echo ${{ env.MESSAGE }}
-          echo ${{ env.SUPER_SECRET }} | sed 's/./& /g'
-          echo "***\n"
-          curl \
-            -X POST \
-            -H 'Accept: application/vnd.github+json' \
-            -H 'Authorization: Bearer ${{ secrets.APPROVE_PAT }}' \
-            ${{ github.event.review.pull_request_url }}/reviews \
-            -d '{"body":"${{ env.MESSAGE }}","event":"APPROVE"}'
+        uses: actions/github-script@v6
+        with:
+          debug: true
+          retries: 3
+          # github-token: ${{ secrets.APPROVE_PAT }}
+          script: |
+            console.log(`Approve PR: ${context.payload.pull_request.number}`)
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: 'Approved!',
+              event: 'APPROVE'
+            });
