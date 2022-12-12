@@ -7,7 +7,7 @@
   "packageRules": [
     {
       "matchPackageNames": ["github.com/testcontainers/testcontainers-go"],
-      "allowedVersions": "!/v0\\.16\\.d*$/"
+      "allowedVersions": "!/v0\\.16\\.\\d*$/"
     }
   ]
 }
