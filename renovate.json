@@ -10,7 +10,7 @@
       "schedule": ["every tuesday"]
     },
     {
-      "matchPackagePatterns": ["!^github.com/testcontainers.*"],
+      "matchPackagePatterns": ["^github.com/testcontainers.*"],
       "schedule": ["at any time"]
     }
   ]
