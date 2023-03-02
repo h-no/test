@@ -6,8 +6,12 @@
 
   "packageRules": [
     {
-      "matchPackageNames": ["github.com/testcontainers/testcontainers-go"],
-      "allowedVersions": "!/v0\\.16\\.\\d*$/"
+      "matchPackagePatterns": ["!^github.com/testcontainers.*"],
+      "schedule": ["every tuesday"]
+    },
+    {
+      "matchPackagePatterns": ["!^github.com/testcontainers.*"],
+      "schedule": ["at any time"]
     }
   ]
 }
