@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+
+  "semanticCommits": "disabled",
+
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "!^github.com/testcontainers/.*",
+        "!^@axteams-software/.*"
+      ],
+      "schedule": ["every tuesday"]
+    },
+    {
+      "matchPackagePatterns": [
+        "^github.com/testcontainers/.*",
+        "^@axteams-software/.*"
+      ],
+      "schedule": ["at any time"]
+    }
+  ]
+}
